@@ -3,15 +3,6 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
-  );
-}
-
 const Apple = Component => {
   return class extends React.Component {
     state = { x: 0, y: 0 };
@@ -22,9 +13,10 @@ const Apple = Component => {
       });
     };
     render() {
+      console.log({ ...this.props });
       return (
         <div onMouseMove={this.handleMouseEvent}>
-          <Component {...this.props} mouse={this.state} />
+          <Component mouse={this.state} />
         </div>
       );
     }
@@ -32,19 +24,48 @@ const Apple = Component => {
 };
 
 class Apples extends React.Component {
+  constructor() {
+    super();
+    console.log("1");
+  }
+  static getDerivedStateFromProps() {
+    console.log("2");
+  }
+  componentDidMount() {
+    console.log("4");
+  }
+  shouldComponentUpdate() {
+    console.log("5");
+    return true;
+  }
+  getSnapshotBeforeUpdate(e) {
+    console.log("8", e);
+  }
+  componentDidUpdate() {
+    console.log("99");
+  }
+  componentDidCatch() {
+    console.log("errr");
+  }
+  componentWillUnmount() {
+    console.log("9999");
+  }
   render() {
+    console.log("3");
     const { x, y } = this.props.mouse;
     return (
       <div>
         <p>
-          {x} {y}
+          {x}
+          <hr />
+          {y}
         </p>
       </div>
     );
   }
 }
 
-//https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce
+// https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce
 
 const AppWithMouse = Apple(Apples);
 
