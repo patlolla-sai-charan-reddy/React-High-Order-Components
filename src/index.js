@@ -23,6 +23,7 @@ const Apple = Component => {
   };
 };
 
+/* Highorder components */
 class Apples extends React.Component {
   constructor() {
     super();
