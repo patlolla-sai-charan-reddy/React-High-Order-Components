@@ -28,12 +28,14 @@ class Apples extends React.Component {
   constructor() {
     super();
     console.log("1");
+    this.currentRef = React.createRef();
   }
   static getDerivedStateFromProps() {
     console.log("2");
   }
   componentDidMount() {
-    console.log("4");
+    console.log("4", this.currentRef.current);
+    this.currentRef;
   }
   shouldComponentUpdate() {
     console.log("5");
@@ -60,9 +62,17 @@ class Apples extends React.Component {
           {x}
           <hr />
           {y}
+          <hr />
+          <WelcomeMessage ref={this.currentRef}>Here We Go</WelcomeMessage>
         </p>
       </div>
     );
+  }
+}
+
+class WelcomeMessage extends React.Component {
+  render() {
+    return <React.Fragment>{this.props.children}</React.Fragment>;
   }
 }
 
